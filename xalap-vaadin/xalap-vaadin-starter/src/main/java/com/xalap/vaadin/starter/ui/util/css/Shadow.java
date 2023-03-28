@@ -1,0 +1,27 @@
+/*
+ *  All rights reserved by Xalap.
+ *  Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+ */
+
+/*
+ *
+ */
+
+package com.xalap.vaadin.starter.ui.util.css;
+
+public enum Shadow {
+
+    XS("var(--lumo-box-shadow-xs)"), S("var(--lumo-box-shadow-s)"), M(
+            "var(--lumo-box-shadow-m)"), L("var(--lumo-box-shadow-l)"), XL(
+            "var(--lumo-box-shadow-xl)");
+
+    private final String value;
+
+    Shadow(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+}

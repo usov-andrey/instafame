@@ -1,0 +1,83 @@
+web-context-path: /
+# Ensure application is run in Vaadin 14/npm mode
+vaadin:
+  compatibilityMode: false
+  #Обязательно контекст должен заканчиваться слешем, иначе VaadinServlet.handleContextOrServletRootWithoutSlash будет делать редирект
+  web-context: /ui/
+  # Делаем возможным одновременный доступ к vaadin и spring контроллерам
+  # Согласно статье https://vaadin.com/learn/tutorials/microservices/ui-composition
+  urlMapping: ${vaadin.web-context}*
+
+xalap:
+  uaa:
+    login:
+      success-url: ${vaadin.web-context}/users
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # you can track the latest 100 http requests by calling this url: http://localhost:8070/actuator/httptrace
+        include: "*"
+
+spring:
+  # This is a workaround for https://github.com/vaadin/spring/issues/381
+  servlet:
+    multipart:
+      enabled: false
+
+  # create and drop tables and sequences, loads import.sql
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:p6spy:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    initialization-mode: always
+
+  #Для инициализации схема бд для LockService
+  integration:
+    jdbc:
+      initialize-schema: always
+
+
+#logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
+logging:
+  level:
+    com:
+      xalap: debug
+      vaadin: info
+
+    org:
+      springframework: info
+      #Логирование web запросов
+      springframework.web.filter.CommonsRequestLoggingFilter: debug
+      springframework.web: info
+      springframework.security: info
+      springframework.security.web.util.matcher: info
+      #springframework.transaction: trace
+      #springframework.orm.jpa: debug
+      hibernate: warn
+      #hibernate.transaction: trace
+    p6spy: debug
+    #Трассировка методов в репозиториях
+    repository: trace
+    transaction: trace
+
+server:
+  servlet:
+    encoding:
+      # В случае, если в запросе не указана кодировка то выставляем ее utf-8
+      charset: UTF-8
+      enabled: true
+      force: true

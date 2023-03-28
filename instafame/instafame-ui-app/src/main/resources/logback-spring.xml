@@ -1,0 +1,115 @@
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<configuration>
+
+    <!-- use Spring default values -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!dev">
+        <appender name="FILE-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>C:\Server\logs\instafame-out.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>C:\Server\logs\instafame-out.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- Keep no more than 3 months data. -->
+                <maxHistory>90</maxHistory>
+                <totalSizeCap>4GB</totalSizeCap>
+                <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            </rollingPolicy>
+
+
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>[%thread] %X{user} %date{ISO8601} %-5level %logger{36} - %msg%n</Pattern>
+            </layout>
+        </appender>
+
+        <appender name="FILE-ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>C:\Server\logs\instafame-err.log</File>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>C:\Server\logs\instafame-err.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- Keep no more than 3 months data. -->
+                <maxHistory>90</maxHistory>
+                <totalSizeCap>1GB</totalSizeCap>
+                <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            </rollingPolicy>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>[%thread] %X{user} %date{ISO8601} %-5level %logger{36} - %msg%n</Pattern>
+            </layout>
+        </appender>
+
+        <appender name="Sentry" class="io.sentry.logback.SentryAppender">
+            <options>
+                <!-- NOTE: Replace the test DSN below with YOUR OWN DSN to see the events from this app in your Sentry project/dashboard -->
+                <dsn>${SENTRY_DNS}</dsn>
+            </options>
+            <!-- Optionally change minimum Breadcrumbs level. Default for Breadcrumbs is INFO -->
+            <minimumBreadcrumbLevel>DEBUG</minimumBreadcrumbLevel>
+        </appender>
+        <appender name="ROLLBAR" class="com.rollbar.logback.RollbarAppender">
+            <accessToken>${ROLLBAR_ACCESS_TOKEN}</accessToken>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+        </appender>
+
+        <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
+            <!-- Slack API token -->
+            <!--
+            <token>1111111111-1111111-11111111-111111111</token>-->
+            <!-- Slack incoming webhook uri. Uncomment the lines below to use incoming webhook uri instead of API token. -->
+
+            <webhookUri>https://hooks.slack.com/services/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</webhookUri>
+            <!-- Channel that you want to post - default is #general -->
+            <channel>#errors</channel>
+            <!-- Formatting (you can use Slack formatting - URL links, code formatting, etc.) -->
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>[%thread] %X{user} %date{ISO8601} %-5level %logger{36} - %msg%n</pattern>
+            </layout>
+            <!-- Username of the messages sender -->
+            <username>${HOSTNAME}</username>
+            <!-- Emoji to be used for messages -->
+            <iconEmoji>:stuck_out_tongue_winking_eye:</iconEmoji>
+            <!-- If color coding of log levels should be used -->
+            <colorCoding>false</colorCoding>
+        </appender>
+
+        <!-- Currently recommended way of using Slack appender -->
+        <appender name="ASYNC_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+            <appender-ref ref="SLACK"/>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="FILE-OUT"/>
+            <appender-ref ref="FILE-ERR"/>
+            <appender-ref ref="ASYNC_SLACK"/>
+            <appender-ref ref="ROLLBAR"/>
+            <appender-ref ref="Sentry"/>
+        </root>
+    </springProfile>
+</configuration>

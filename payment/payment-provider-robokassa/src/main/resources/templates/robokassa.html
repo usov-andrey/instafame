@@ -1,0 +1,13 @@
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<form action='https://auth.robokassa.ru/Merchant/Index.aspx' id="payment-form" method=POST>
+    <input type=hidden name=MerchantLogin th:value='${merchantLogin}'>
+    <input type=hidden name=OutSum th:value='${amount}'>
+    <input type=hidden name=InvId th:value='${invoiceId}'>
+    <input type=hidden name=Description th:value='${description}'>
+    <input type=hidden name=SignatureValue th:value='${signature}'>
+    <input type=hidden name=Email th:value='${email}'>
+</form>

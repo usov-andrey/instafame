@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>instagram</artifactId>
+        <groupId>com.xalap</groupId>
+        <version>1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>instagram-client-http</artifactId>
+    <version>${instagram.version}</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>xalap-utils</artifactId>
+            <version>${xalap.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>instagram-client-api</artifactId>
+            <version>${instagram.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

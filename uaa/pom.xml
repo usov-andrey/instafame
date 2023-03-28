@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>xalap-pom</artifactId>
+        <groupId>com.xalap</groupId>
+        <version>1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>uaa</artifactId>
+    <version>1-SNAPSHOT</version>
+
+    <properties>
+        <uaa.version>1.0.2-SNAPSHOT</uaa.version>
+    </properties>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>uaa-api</module>
+        <module>uaa-service</module>
+        <module>uaa-ui</module>
+        <module>uaa-app</module>
+    </modules>
+</project>

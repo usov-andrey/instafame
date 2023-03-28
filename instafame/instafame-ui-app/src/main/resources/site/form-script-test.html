@@ -1,0 +1,508 @@
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<script>
+    //div.t616 - класс тарифов
+    //div.t616__col - класс одного блока с тарифом
+    //div.t616__uptitle - блок заголовка тарифа
+    //div.t616__price - блок цены
+    //div.t616__text - блок описания тарифа
+    //a.t616__btn - кнопка
+    //#rec201284563 - блок с тарифами
+    //#rec201316798 - id блока popup выбора количества
+    //#rec201620498 - id блока popup выбора скорости
+    //div.t702 - класс попапа
+
+    //Скорость набора подписчиков
+    var speedValues = [
+        {
+            name: "Минимальная (50-100 в день)",
+            caption: "Минимальная",
+            count: "50-100 в день",
+            prefix: "",
+            value: "50-100",
+            suffix: " в день"
+        },
+        {
+            name: "Естественная (100-250 в день)",
+            caption: "Естественная",
+            count: "100-250 в день",
+            prefix: "",
+            value: "100-250",
+            suffix: " в день"
+        },
+        {
+            name: "Ускоренная (250-500 в день)",
+            caption: "Ускоренная",
+            count: "250-500 в день",
+            prefix: "",
+            value: "250-500",
+            suffix: " в день"
+        },
+        {
+            name: "Максимальная (500-1000 в день)",
+            caption: "Максимальная",
+            count: "500-1000 в день",
+            prefix: "",
+            value: "500-1000",
+            suffix: " в день"
+        }
+    ];
+
+    var followerPackages = [
+        {
+            name: "Премиум подписчиков",
+            type: "подписчиков",
+            count: 1000,
+            min: 100,
+            max: 10000,
+            mark1000: 1000,
+            priceMin: 1.2,
+            price1000: 0.79,
+            priceMax: 0.75,
+            speed: speedValues[2],
+            popupBlockId: "#rec221849426",
+            speedPopupBlockId: "#rec221849429",
+            discountStyle: "color: rgb(255, 108, 99);"
+        },
+        {
+            name: "VIP подписчиков",
+            type: "подписчиков",
+            count: 1000,
+            min: 1000,
+            max: 10000,
+            mark1000: 1000,
+            priceMin: 0.79,
+            price1000: 0.79,
+            priceMax: 0.75,
+            speed: speedValues[1],
+            popupBlockId: "#rec221849427",
+            speedPopupBlockId: "#rec221849430",
+            discountStyle: "color: rgb(108, 99, 255);",
+            likes: {
+                count: 2000,
+                min: 1000,
+                max: 10000,
+                name: "лайков",
+                type: "",
+                priceMin: 0.4,
+                price1000: 0.3,
+                priceMax: 0.25,
+                mark1000: 2000,
+            }
+        },
+        {
+            name: "Эконом подписчиков",
+            type: "подписчиков",
+            count: 1000,
+            min: 200,
+            max: 10000,
+            mark1000: 1000,
+            priceMin: 0.495,
+            price1000: 0.29,
+            priceMax: 0.25,
+            speed: speedValues[3],
+            popupBlockId: "#rec221849425",
+            speedPopupBlockId: "#rec221849428",
+            discountStyle: "color: rgb(255, 108, 99);"
+        }
+    ];
+
+    var activityPackages = [
+        {
+            name: "лайков",
+            type: "лайков",
+            count: 1000,
+            min: 100,
+            max: 10000,
+            mark1000: 1000,
+            priceMin: 0.6,
+            price1000: 0.4,
+            priceMax: 0.3,
+            speed: {
+                name: "",
+                caption: "",
+                prefix: "на ",
+                value: 5,
+                suffix: " публ."
+            },
+            popupBlockId: "#rec221849432",
+            discountStyle: "color: rgb(255, 108, 99);",
+            settingsPopupBlockId: "#rec221849434"
+        },
+        {
+            name: "комментариев",
+            type: "комментариев",
+            count: 50,
+            min: 10,
+            max: 1000,
+            mark1000: 100,
+            priceMin: 6,
+            price1000: 3.6,
+            priceMax: 3,
+            speed: {
+                name: "",
+                caption: "",
+                prefix: "на ",
+                value: 5,
+                suffix: " публ."
+            },
+            popupBlockId: "#rec221849433",
+            discountStyle: "color: rgb(255, 108, 99);",
+            settingsPopupBlockId: "#rec221849435"
+        }
+    ];
+
+    function calcPriceForOne(count, minCount, maxCount, minCoef, maxCoef) {
+        return (count - minCount) / (maxCount - minCount) * (maxCoef - minCoef) + minCoef;
+    }
+
+    function calcPrice(package, count) {
+        var priceNoDiscount = package.priceMin * count | 0;
+        var priceForOne = package.price1000;
+        //Если больше минимального, то действует скидка
+        if (count < package.mark1000) {
+            priceForOne = calcPriceForOne(count, package.min, package.mark1000, package.priceMin, package.price1000);
+        } else if (count > package.mark1000) {
+            priceForOne = calcPriceForOne(count, package.mark1000, package.max, package.price1000, package.priceMax);
+        }
+        var priceWithDiscount = priceForOne * count | 0;
+
+        return {
+            withDiscount: priceWithDiscount,
+            noDiscount: priceNoDiscount
+        };
+    }
+
+    function mediaSuffix(count) {
+        if (count == 1) {
+            return " последнюю публикацию";
+        } else if (count == 2) {
+            return " последние публикации";
+        } else {
+            return " последних публикаций";
+        }
+    }
+
+    function findDescBlock(block) {
+        return block.find("div.t616__text").find("strong").eq(0);
+    }
+
+    function findSpeedBlock(block) {
+        return block.find("div.t616__text").find("strong").eq(1);
+    }
+
+    $(function () {
+
+        //блок с тарифами
+        var followersPriceBlock = $("#rec221849424");
+        var activityPriceBlock = $("#rec221849431");
+
+//Заменяем значение к кнопке
+        function changeButton(block, count, package) {
+            var newPrice = calcPrice(package, count);
+            block.find("a.t616__btn").attr("href", "#order:" + count + " " + package.name + ", " + package.speed.prefix
+                + package.speed.value + package.speed.suffix + "=" + newPrice.withDiscount);
+        }
+
+
+        //Окно выбора количества подписчиков
+        function setCountPopupButtonOnClick(priceBlock, packages, index) {
+
+            //Изменить выбранное количество подписчиков
+            function changeCount(priceBlock, blockIndex, count, package) {
+                var block = priceBlock.find("div.t616__col").eq(blockIndex);
+                //Заменяем цену со скидкой и без
+
+                var newPrice = calcPrice(package, count);
+                var discountHtml = "";
+                if (newPrice.withDiscount < newPrice.noDiscount) {
+                    //<del><span style="color: rgb(255, 108, 99);" data-redactor-tag="span">390</span></del> 290 руб
+                    //color: rgb(255, 108, 99);
+                    //color: rgb(108, 99, 255);
+                    var discountHtml = "<del><span style='" + package.discountStyle + "' data-redactor-tag='span'>"
+                        + newPrice.noDiscount + "</span></del>";
+                }
+                block.find("div.t616__price").html(discountHtml + newPrice.withDiscount + " руб");
+
+                //Заменяем количество подписчиков
+                var descBlock = findDescBlock(block);
+                var descHtml = descBlock.html();
+                descHtml = descHtml.replace("+" + package.count + " " + package.type, "+"
+                    + count + " " + package.type);
+                descBlock.html(descHtml);
+
+                //Заменяем значение к кнопке
+                changeButton(block, count, package);
+            }
+
+            function changePriceText(package, input, priceText) {
+                var newPrice = calcPrice(package, input.val());
+                var discountHtml = "";
+                if (newPrice.withDiscount < newPrice.noDiscount) {
+                    var discountHtml = "<del>" + newPrice.noDiscount + "</del>&nbsp;";
+                }
+                priceText.html("Цена:&nbsp;" + discountHtml + newPrice.withDiscount + " руб");
+            }
+
+            var package = packages[index];
+            var popupBlock = $(package.popupBlockId);
+            var input = popupBlock.find("[name=countValue]");
+            var priceText = popupBlock.find("div.t-text").eq(2);//первый блок - это просто комментарий
+            //Делаем жирнее и больше шрифт
+            priceText.addClass("t-name");
+            priceText.addClass("t-name_md");
+
+            //Устанавливаем значение в соответствии с package
+            popupBlock.find("div.t-input-title").eq(0).html("Количество " + package.name);
+            input.attr("min", package.min);
+            popupBlock.find("div.t-range__interval-txt_min").html(package.min);
+            input.attr("max", package.max);
+            popupBlock.find("div.t-range__interval-txt_max").html(package.max);
+            input.val(package.count);
+            changePriceText(package, input, priceText);
+
+            popupBlock.find("button.t-submit").click(function () {
+                //Изменяем количество
+                var count = input.val();
+                changeCount(priceBlock, index, count, package);
+                //Запоминаем выбор
+                package.count = count;
+                //Закрываем popup
+                popupBlock.find('div.t-popup__close').click();
+                return false;
+            });
+
+            input.on("input", function (e) {
+                changePriceText(package, input, priceText);
+            });
+
+            changeCount(priceBlock, index, package.count, package);
+
+        }
+
+        //Окно выбора скорости для подписчиков
+        function setSpeedPopupButtonOnClick(priceBlock, packages, index) {
+            var package = packages[index];
+            var popupBlock = $(package.speedPopupBlockId);
+
+            popupBlock.find("button.t-submit").click(function () {
+                //Изменяем количество
+                var speedName = popupBlock.find("[name=calc_speed]").val();
+                var speed = speedValues.find(function (element) {
+                    return element.name == speedName;
+                });
+
+                //Изменяем описание
+                var block = priceBlock.find("div.t616__col").eq(index);
+                var speedBlock = findSpeedBlock(block);
+                var descHtml = speedBlock.html();
+                descHtml = descHtml.replace(package.speed.caption, speed.caption);
+                descHtml = descHtml.replace(package.speed.count, speed.count);
+                speedBlock.html(descHtml);
+
+                //Запоминаем выбор
+                package.speed = speed;
+
+                //Изменяем значение на кнопке
+                changeButton(block, package.count, package);
+
+                //Закрываем popup
+                popupBlock.find('div.t-popup__close').click();
+                return false;
+            });
+        }
+
+        //Изменить выбранное количество подписчиков
+        function changeVipCount(priceBlock, blockIndex, count, likesCount, package) {
+            var block = priceBlock.find("div.t616__col").eq(blockIndex);
+            //Заменяем цену со скидкой и без
+
+            var priceFollowers = calcPrice(package, count);
+            var priceLikes = calcPrice(package.likes, likesCount);
+            var newPrice = {
+                withDiscount: priceFollowers.withDiscount + priceLikes.withDiscount,
+                noDiscount: priceFollowers.noDiscount + priceLikes.noDiscount
+            };
+            var discountHtml = "";
+            if (newPrice.withDiscount < newPrice.noDiscount) {
+                //<del><span style="color: rgb(255, 108, 99);" data-redactor-tag="span">390</span></del> 290 руб
+                //color: rgb(255, 108, 99);
+                //color: rgb(108, 99, 255);
+                var discountHtml = "<del><span style='" + package.discountStyle + "' data-redactor-tag='span'>"
+                    + newPrice.noDiscount + "</span></del>";
+            }
+            block.find("div.t616__price").html(discountHtml + newPrice.withDiscount + " руб");
+
+            var descBlock = findDescBlock(block);
+            var descHtml = descBlock.html();
+            //Заменяем количество подписчиков
+            descHtml = descHtml.replace("+" + package.count + " " + package.type, "+"
+                + count + " " + package.type);
+            //Заменяем количество лайков
+            descHtml = descHtml.replace("+" + package.likes.count + " " + package.likes.name, "+"
+                + likesCount + " " + package.likes.name);
+            descBlock.html(descHtml);
+
+            //Заменяем значение к кнопке
+            block.find("a.t616__btn").attr("href", "#order:" + count + " " + package.name + ", " + package.speed.prefix
+                + package.speed.value + package.speed.suffix
+                + " и " + likesCount + " " + package.likes.name + "=" + newPrice.withDiscount);
+
+        }
+
+
+        function setVipCountPopupButtonOnClick(priceBlock, packages, index) {
+
+            function changePriceText(package, input, inputLikes, priceText) {
+                var priceFollowers = calcPrice(package, input.val());
+                var priceLikes = calcPrice(package.likes, inputLikes.val());
+                var newPrice = {
+                    withDiscount: priceFollowers.withDiscount + priceLikes.withDiscount,
+                    noDiscount: priceFollowers.noDiscount + priceLikes.noDiscount
+                };
+                //newPrice.withDiscount = Math.round(newPrice.withDiscount / 50) * 50;
+
+                var discountHtml = "";
+                if (newPrice.withDiscount < newPrice.noDiscount) {
+                    var discountHtml = "<del>" + newPrice.noDiscount + "</del>&nbsp;";
+                }
+                //priceText.html("Followers:" + priceFollowers.noDiscount + "FollowersDisc:" + priceFollowers.withDiscount + " likes:" + priceLikes.noDiscount + " likesDisc:" + priceLikes.withDiscount);
+                priceText.html("Цена:&nbsp;" + discountHtml + newPrice.withDiscount + " руб");
+            }
+
+            function setPriceBlock(popupBlock, index, input, package) {
+                popupBlock.find("div.t-input-title").eq(index).html("Количество " + package.name);
+                input.attr("min", package.min);
+                popupBlock.find("div.t-range__interval-txt_min").eq(index).html(package.min);
+                input.attr("max", package.max);
+                popupBlock.find("div.t-range__interval-txt_max").eq(index).html(package.max);
+                input.val(package.count);
+            }
+
+            var package = packages[index];
+            var popupBlock = $(package.popupBlockId);
+
+            var priceText = popupBlock.find("div.t-text").eq(2);//первый блок - это просто комментарий
+            //Делаем жирнее и больше шрифт
+            priceText.addClass("t-name");
+            priceText.addClass("t-name_md");
+
+            //Устанавливаем значение в соответствии с package
+            var input = popupBlock.find("[name=countValue]");
+            setPriceBlock(popupBlock, 0, input, package);
+
+            //Обрабатываем лайки
+            var inputLikes = popupBlock.find("[name=calc_likes]");
+            setPriceBlock(popupBlock, 1, inputLikes, package.likes);
+
+            changePriceText(package, input, inputLikes, priceText);
+
+            popupBlock.find("button.t-submit").click(function () {
+                //Изменяем количество
+                var count = input.val();
+                var likesCount = inputLikes.val();
+                changeVipCount(priceBlock, index, count, likesCount, package);
+                //Запоминаем выбор
+                package.count = count;
+                package.likes.count = likesCount;
+                //Закрываем popup
+                popupBlock.find('div.t-popup__close').click();
+                return false;
+            });
+
+            input.on("input", function (e) {
+                changePriceText(package, input, inputLikes, priceText);
+            });
+
+            inputLikes.on("input", function (e) {
+                changePriceText(package, input, inputLikes, priceText);
+            });
+
+            changeVipCount(priceBlock, index, package.count, package.likes.count, package);
+
+        }
+
+        //Окно выбора скорости для подписчиков
+        function setVipSpeedPopupButtonOnClick(priceBlock, packages, index) {
+            var package = packages[index];
+            var popupBlock = $(package.speedPopupBlockId);
+
+            popupBlock.find("button.t-submit").click(function () {
+                //Изменяем количество
+                var speedName = popupBlock.find("[name=calc_speed]").val();
+                var speed = speedValues.find(function (element) {
+                    return element.name == speedName;
+                });
+
+                //Изменяем описание
+                var block = priceBlock.find("div.t616__col").eq(index);
+                var speedBlock = findSpeedBlock(block);
+                var descHtml = speedBlock.html();
+                descHtml = descHtml.replace(package.speed.caption, speed.caption);
+                descHtml = descHtml.replace(package.speed.count, speed.count);
+                speedBlock.html(descHtml);
+
+                //Запоминаем выбор
+                package.speed = speed;
+
+                //Изменяем значение на кнопке
+                changeVipCount(priceBlock, index, package.count, package.likes.count, package);
+
+                //Закрываем popup
+                popupBlock.find('div.t-popup__close').click();
+                return false;
+            });
+        }
+
+        //Окно выбора скорости для лайков и комментариев
+        function setSettingsPopupButtonOnClick(priceBlock, packages, index) {
+            var package = packages[index];
+            var popupBlock = $(package.settingsPopupBlockId);
+            var block = priceBlock.find("div.t616__col").eq(index);
+
+            popupBlock.find("button.t-submit").click(function () {
+                //Изменяем количество
+                var newMediaCount = popupBlock.find("[name=countValue]").val();
+
+                //Изменяем описание
+                var descBlock = findSpeedBlock(block);
+                var descHtml = descBlock.html();
+                descHtml = descHtml.replace("На " + package.speed.value + mediaSuffix(package.speed.value), "На " + newMediaCount + mediaSuffix(newMediaCount));
+                descBlock.html(descHtml);
+
+                //Запоминаем выбор
+                package.speed.value = newMediaCount;
+
+                changeButton(block, package.count, package);
+
+                //Закрываем popup
+                popupBlock.find('div.t-popup__close').click();
+                return false;
+            });
+
+            changeButton(block, package.count, package);
+        }
+
+        //Эконом
+        setCountPopupButtonOnClick(followersPriceBlock, followerPackages, 2);
+        setSpeedPopupButtonOnClick(followersPriceBlock, followerPackages, 2);
+        //Премиум
+        setCountPopupButtonOnClick(followersPriceBlock, followerPackages, 0);
+        setSpeedPopupButtonOnClick(followersPriceBlock, followerPackages, 0);
+        //VIP
+        setVipCountPopupButtonOnClick(followersPriceBlock, followerPackages, 1);
+        setVipSpeedPopupButtonOnClick(followersPriceBlock, followerPackages, 1);
+
+        //Лайки
+        setCountPopupButtonOnClick(activityPriceBlock, activityPackages, 0);
+        setSettingsPopupButtonOnClick(activityPriceBlock, activityPackages, 0);
+        //Комментарии
+        setCountPopupButtonOnClick(activityPriceBlock, activityPackages, 1);
+        setSettingsPopupButtonOnClick(activityPriceBlock, activityPackages, 1);
+
+
+    });
+</script>

@@ -1,0 +1,26 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('clean') {
+            steps {
+                sh "chmod +x mvnw"
+                sh "./mvnw -ntp clean"
+            }
+        }
+
+        stage('installing') {
+            steps {
+                sh "./mvnw -ntp install"
+            }
+        }
+    }
+}

@@ -1,0 +1,80 @@
+/*
+ * All rights reserved by Xalap.
+ * Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+ */
+
+.message {
+    border-radius: 5px;
+    box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+}
+
+.message::before {
+    background-color: #F2F2F2;
+    content: "";
+    display: block;
+    height: 10px;
+    position: absolute;
+    top: 0px;
+    width: 17px;
+}
+
+.friend-message {
+    background-color: var(--lumo-primary-color);
+    float: right;
+    color: var(--lumo-primary-contrast-color);
+}
+
+.friend-message::before {
+    box-shadow: 4px 0px 6px -4px rgba(0, 0, 0, 0.3);
+    right: -5px;
+    background-color: var(--lumo-primary-color);
+    transform: rotate(0deg) skew(-50deg);
+}
+
+.user-message {
+    background-color: rgb(255, 255, 255);
+    float: left;
+    color: var(--lumo-body-text-color);
+}
+
+.user-message::before {
+    box-shadow: -4px 0px 6px -4px rgba(0, 0, 0, 0.3);
+    background-color: rgb(255, 255, 255);
+    left: -5px;
+    transform: rotate(0deg) skew(50deg);
+}
+
+.planned-message {
+    background-color: var(--lumo-error-color);
+    float: right;
+    color: var(--lumo-primary-contrast-color);
+}
+
+.planned-message::before {
+    box-shadow: 4px 0px 6px -4px rgba(0, 0, 0, 0.3);
+    right: -5px;
+    background-color: var(--lumo-error-color);
+    transform: rotate(0deg) skew(-50deg);
+}
+
+@media (min-width: 720px) {
+    .details-drawer[position="bottom"] {
+        height: 400px;
+    }
+
+    .details-drawer:not([open])[position="bottom"] {
+        margin-bottom: -400px;
+    }
+
+    .details-drawer[position="right"] {
+        width: calc(var(--details-drawer-width) * 2)
+    }
+
+    .details-drawer:not([open])[position="right"] {
+        margin-right: calc(var(--details-drawer-width) * 2 * -1);
+    }
+}

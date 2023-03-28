@@ -1,0 +1,37 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK-11'
+    }
+
+    stages {
+
+        stage('checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('check java') {
+            steps {
+                sh "java -version"
+            }
+        }
+
+        stage('clean') {
+            steps {
+                sh "chmod +x mvnw"
+                sh "./mvnw -ntp clean"
+            }
+        }
+
+        stage('installing') {
+            steps {
+                sh "./mvnw -ntp install"
+            }
+        }
+    }
+}

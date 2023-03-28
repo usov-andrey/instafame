@@ -1,0 +1,51 @@
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<link href="bower_components/polymer/polymer.html" rel="import">
+
+<dom-module id="clipboard-helper">
+    <template>
+        <div id="wrapper" on-click="copy"></div>
+    </template>
+
+    <script>
+        class ClipboardHelper extends Polymer.Element {
+            static get is() {
+                return 'clipboard-helper';
+            }
+
+            static get properties() {
+                return {
+                    content: {
+                        type: String,
+                        value: ""
+                    }
+                };
+            }
+
+            copy() {
+                const el = document.createElement('textarea');
+                el.value = this.content;
+                el.setAttribute('readonly', '');
+                el.style.position = 'absolute';
+                el.style.left = '-9999px';
+                document.body.appendChild(el);
+                const selected =
+                    document.getSelection().rangeCount > 0
+                        ? document.getSelection().getRangeAt(0)
+                        : false;
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                if (selected) {
+                    document.getSelection().removeAllRanges();
+                    document.getSelection().addRange(selected);
+                }
+            }
+        }
+
+        customElements.define(ClipboardHelper.is, ClipboardHelper);
+    </script>
+</dom-module>

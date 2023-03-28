@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>xalap-pom</artifactId>
+        <groupId>com.xalap</groupId>
+        <version>1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>instafame</artifactId>
+    <version>1-SNAPSHOT</version>
+
+    <properties>
+        <instagram.version>1.0.2-SNAPSHOT</instagram.version>
+        <uaa.version>1.0.2-SNAPSHOT</uaa.version>
+        <crm.version>1.0.2-SNAPSHOT</crm.version>
+        <instafame.version>1.0.2-SNAPSHOT</instafame.version>
+        <payment.version>1.0.2-SNAPSHOT</payment.version>
+    </properties>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>instafame-service</module>
+        <module>instafame-ui</module>
+        <module>instafame-ui-app</module>
+    </modules>
+
+</project>

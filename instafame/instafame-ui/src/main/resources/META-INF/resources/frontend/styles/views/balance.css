@@ -1,0 +1,233 @@
+/*
+ * All rights reserved by Xalap.
+ * Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+ */
+
+
+.box2i {
+    padding: 0 240px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px
+}
+
+@media only screen and (max-width: 770px) {
+    .box2i {
+        padding-left: 30px;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }
+}
+
+.box2i:after,
+.box2i:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.box2i:before {
+    background-position: left bottom;
+    background-image: url(../../../images/cashin-1.svg);
+}
+
+@media only screen and (max-width: 770px) {
+    .box2i:before {
+        display: none
+    }
+}
+
+.box2i:after {
+    background-position: right bottom;
+    background-image: url(../../../images/cashin-2.svg);
+}
+
+@media only screen and (max-width: 540px) {
+    .box2i {
+        padding: 25px
+    }
+
+    .box2i:after {
+        display: none
+    }
+}
+
+.box2i_inside {
+    max-width: 550px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    position: relative
+}
+
+@media only screen and (max-width: 770px) {
+    .box2i_inside {
+        text-align: left;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .box2i_inside {
+        max-width: 100%;
+        text-align: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center
+    }
+}
+
+.pay-bonus {
+    border: 1px solid #e8e9fb;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    width: 220px
+}
+
+.pay-bonus--bright .pay-bonus__percentage {
+    background: #fa7777 !important
+}
+
+.pay-bonus--bright .pay-bonus__percentage:before {
+    border-right-color: #fa7777 !important
+}
+
+.pay-bonus--bright .pay-bonus__percentage:after {
+    border-bottom-color: #fa7777 !important
+}
+
+.pay-bonus__inner {
+    padding: 0 20px
+}
+
+.pay-bonus__inner {
+    background: #f7fafe;
+    color: #7f8fa5;
+    font-weight: 600;
+    height: 100px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #e8ebf0
+}
+
+.pay-bonus__percentage {
+    width: 40px;
+    height: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    position: absolute;
+    top: 25px;
+    right: 0
+}
+
+.pay-bonus__percentage:after,
+.pay-bonus__percentage:before {
+    content: '';
+    position: absolute;
+    right: 100%
+}
+
+.pay-bonus__percentage:before {
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    border-color: transparent #fff transparent transparent
+}
+
+.pay-bonus__percentage:after {
+    top: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 10px 10px;
+    border-color: transparent transparent #fff transparent
+}
+
+.pay-bonus__sum {
+    margin-bottom: 10px
+}
+
+.pay-bonus__sum-label {
+    font-size: 13px
+}
+
+.pay-bonus__sum-value {
+    font-size: 30px;
+    color: #4e5665
+}
+
+.pay-bonus__sum-cur {
+    font-size: 18px
+}
+
+.pay-bonus__gift {
+    color: #93c756;
+    position: relative;
+    padding-left: 20px
+}
+
+.pay-bonus__gift:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 14px
+}
+
+.pay-bonus__percentage {
+    background: #6972e0
+}
+
+.pay-bonus__percentage:before {
+    border-right-color: #6972e0
+}
+
+.pay-bonus__percentage:after {
+    border-bottom-color: #6972e0
+}

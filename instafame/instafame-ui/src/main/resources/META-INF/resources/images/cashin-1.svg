@@ -1,0 +1,121 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="224" height="141">
+    <defs>
+        <path id="z" d="M514 313.697c-.024-.673.516-1.238 1.208-1.262H517V302h-16v12h12.997z"/>
+        <path id="b"
+              d="M307.9 236.06c0-15.188 12.312-27.5 27.5-27.5h151.46c15.188 0 27.5 12.312 27.5 27.5v69.27c0 15.188-12.312 27.5-27.5 27.5H335.4c-15.188 0-27.5-12.312-27.5-27.5z"/>
+        <path id="e" d="M339.73 333.47v-7.7h52.45v7.7z"/>
+        <path id="f" d="M335 315.35v-7.72h90.94v7.72z"/>
+        <path id="h"
+              d="M346 276.5c0-15.188 12.312-27.5 27.5-27.5h157c15.188 0 27.5 12.312 27.5 27.5v74c0 15.188-12.312 27.5-27.5 27.5h-157c-15.188 0-27.5-12.312-27.5-27.5z"/>
+        <path id="i"
+              d="M349 277.5c0-15.188 12.312-27.5 27.5-27.5h151c15.188 0 27.5 12.312 27.5 27.5v69c0 15.188-12.312 27.5-27.5 27.5h-151c-15.188 0-27.5-12.312-27.5-27.5z"/>
+        <path id="j"
+              d="M384.962 305.592v-3.688c0-.97.12-1.92 0-2.888-1.036-.818-1.883-1.085-2.61-1.002-1.78.184-2.436 1.753-2.816 3.172-.968 3.722-.363 7.928 1.002 12.368l-13.755.033c-2.108.5-2.368 3.088-.674 4.4.657.45 1.486.584 2.333.684-.864.4-1.66.868-1.85 1.77-.484 2.17.812 3.07 2.402 3.305-.847.383-1.4.9-1.607 1.635-.484 1.72.605 3.47 2.6 3.505-.882.434-1.366 1.035-1.452 1.82-.208 1.634.7 2.503 2.038 3.037a2.22 2.22 0 001.124.217l.57.016h6.342l16.33.017V334h.12l3.23-.017c.64 0 .864-.968.57-1.535l-.777-1.52-3.04-5.875-.105-.183-1.036-2.003z"/>
+        <path id="k" d="M364 287v-17h6v17z"/>
+        <path id="l" d="M372 287v-17h6v17z"/>
+        <path id="m" d="M380 287v-17h6v17z"/>
+        <path id="n" d="M393 287v-17h6v17z"/>
+        <path id="o" d="M401 287v-17h6v17z"/>
+        <path id="p" d="M409 287v-17h6v17z"/>
+        <path id="q" d="M422 287v-17h6v17z"/>
+        <path id="r" d="M430 287v-17h6v17z"/>
+        <path id="s" d="M438 287v-17h6v17z"/>
+        <path id="t" d="M451 287v-17h6v17z"/>
+        <path id="u" d="M459 287v-17h6v17z"/>
+        <path id="v" d="M466 287v-17h6v17z"/>
+        <path id="w" d="M365 364v-8h52v8z"/>
+        <path id="x" d="M364 351v-8h91v8z"/>
+        <path id="d" d="M297 244.45V226.6h206.43v17.86z"/>
+        <path id="B" d="M515.208 325.576c-.692-.024-1.233-.59-1.21-1.26V324h-13v12h16v-10.424z"/>
+        <path id="D" d="M501 322v-7h13v7z"/>
+        <path id="F" d="M522 324.314c.023.672-.517 1.236-1.21 1.26H519V336h16v-12h-13z"/>
+        <path id="H" d="M519 302v10.435h1.792c.692.024 1.233.59 1.21 1.262V314h13v-12z"/>
+        <path id="J" d="M522 322v-7h13v7z"/>
+        <path id="K" d="M514.186 313.72c0-.635.504-1.15 1.125-1.15H517V303h-15v11h12.19z"/>
+        <path id="L" d="M515.32 324.437a1.138 1.138 0 01-1.126-1.15V323H502v11h15v-9.563z"/>
+        <path id="M" d="M501 321v-6h13v6z"/>
+        <path id="N" d="M521.814 323.28c0 .635-.504 1.15-1.125 1.15H519V334h15v-11h-12.186z"/>
+        <path id="O" d="M519 303v9.563h1.688c.622 0 1.126.515 1.126 1.15V314H534v-11z"/>
+        <path id="P" d="M521 321v-6h13v6z"/>
+        <linearGradient id="g" x1="452" x2="452" y1="378" y2="249" xlink:href="#a">
+            <stop offset="0" stop-color="gray" stop-opacity=".25"/>
+            <stop offset=".54" stop-color="gray" stop-opacity=".12"/>
+            <stop offset="1" stop-color="gray" stop-opacity=".1"/>
+        </linearGradient>
+        <linearGradient id="y" x1="509" x2="509" y1="314" y2="302" xlink:href="#a">
+            <stop offset="0" stop-opacity=".12"/>
+            <stop offset=".55" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".02"/>
+        </linearGradient>
+        <linearGradient id="A" x1="509" x2="509" y1="336.01" y2="324.01" xlink:href="#a">
+            <stop offset="0" stop-opacity=".12"/>
+            <stop offset=".55" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".02"/>
+        </linearGradient>
+        <linearGradient id="C" x1="507.5" x2="507.5" y1="322" y2="315" xlink:href="#a">
+            <stop offset="0" stop-opacity=".12"/>
+            <stop offset=".55" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".02"/>
+        </linearGradient>
+        <linearGradient id="E" x1="526.99" x2="526.99" y1="336" y2="324.01" xlink:href="#a">
+            <stop offset="0" stop-opacity=".12"/>
+            <stop offset=".55" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".02"/>
+        </linearGradient>
+        <linearGradient id="G" x1="526.99" x2="526.99" y1="314" y2="302" xlink:href="#a">
+            <stop offset="0" stop-opacity=".12"/>
+            <stop offset=".55" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".02"/>
+        </linearGradient>
+        <linearGradient id="I" x1="528.5" x2="528.5" y1="322" y2="315" xlink:href="#a">
+            <stop offset="0" stop-opacity=".12"/>
+            <stop offset=".55" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".02"/>
+        </linearGradient>
+        <linearGradient id="a" gradientUnits="userSpaceOnUse"/>
+        <clipPath id="c">
+            <use xlink:href="#b"/>
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip-C49343DE-239C-4B30-BB59-9BD426690B90)" transform="translate(-334 -187)">
+        <use fill="#c7cce1" xlink:href="#b" transform="rotate(342.74 411.5 270.5)"/>
+        <g clip-path="url(#c)" transform="rotate(342.74 400.5 235.5)">
+            <use fill="#6c63ff" xlink:href="#d"/>
+        </g>
+        <use fill="#bdbdbd" xlink:href="#e" transform="rotate(342.74 366 330)"/>
+        <use fill="#e0e0e0" xlink:href="#f" transform="rotate(342.74 380 311.5)"/>
+        <use fill="url(#g)" xlink:href="#h"/>
+        <use fill="#504f60" xlink:href="#i"/>
+        <g fill="#5b5a71">
+            <use xlink:href="#j"/>
+            <use xlink:href="#k"/>
+            <use xlink:href="#l"/>
+            <use xlink:href="#m"/>
+            <use xlink:href="#n"/>
+            <use xlink:href="#o"/>
+            <use xlink:href="#p"/>
+            <use xlink:href="#q"/>
+            <use xlink:href="#r"/>
+            <use xlink:href="#s"/>
+            <use xlink:href="#t"/>
+            <use xlink:href="#u"/>
+            <use xlink:href="#v"/>
+        </g>
+        <use fill="#bdbdbd" xlink:href="#w"/>
+        <use fill="#e0e0e0" xlink:href="#x"/>
+        <use fill="url(#y)" xlink:href="#z"/>
+        <use fill="url(#A)" xlink:href="#B"/>
+        <use fill="url(#C)" xlink:href="#D"/>
+        <use fill="url(#E)" xlink:href="#F"/>
+        <use fill="url(#G)" xlink:href="#H"/>
+        <use fill="url(#I)" xlink:href="#J"/>
+        <g fill="#6c63ff">
+            <use xlink:href="#K"/>
+            <use xlink:href="#L"/>
+            <use xlink:href="#M"/>
+            <use xlink:href="#N"/>
+            <use xlink:href="#O"/>
+            <use xlink:href="#P"/>
+        </g>
+    </g>
+</svg>

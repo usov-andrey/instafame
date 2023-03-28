@@ -1,0 +1,132 @@
+application-url: https://crm.xalap.com/
+web-context-path: /
+vaadin:
+  # To improve the performance during development.
+  # For more information https://vaadin.com/docs/flow/spring/tutorial-spring-configuration.html#special-configuration-parameters
+
+  whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.xalap.instafame,com.xalap.vaadin
+  #Обязательно контекст должен заканчиваться слешем, иначе VaadinServlet.handleContextOrServletRootWithoutSlash будет делать редирект
+  web-context: /ui/
+  # Делаем возможным одновременный доступ к vaadin и spring контроллерам
+  # Согласно статье https://vaadin.com/learn/tutorials/microservices/ui-composition
+  urlMapping: ${vaadin.web-context}*
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # you can track the latest 100 http requests by calling this url: http://localhost:8070/actuator/httptrace
+        include: "*"
+
+spring:
+  # This is a workaround for https://github.com/vaadin/spring/issues/381
+  servlet:
+    multipart:
+      enabled: false
+
+  jmx:
+    #В случае когда два spring boot приложения работают на одном томкате возникает ошибка, эта настройка ее исправляет
+    default-domain: instafame
+  # create and drop tables and sequences, loads import.sql
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:p6spy:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    initialization-mode: always
+
+  messages:
+    basename: messages/vaadin
+
+  #Для инициализации схема бд для LockService
+  integration:
+    jdbc:
+      initialize-schema: always
+
+  rabbitmq:
+    host: localhost
+    username: qweqwe
+    password: qwewqe
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: mydb
+
+#logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
+logging:
+  level:
+    com:
+      xalap: debug
+      vaadin: info
+
+    org:
+      springframework: info
+      #Логирование web запросов
+      springframework.web.filter.CommonsRequestLoggingFilter: debug
+      springframework.web: info
+      springframework.security: info
+      springframework.security.web.util.matcher: info
+      #springframework.transaction: trace
+      #springframework.orm.jpa: debug
+      hibernate: warn
+      #hibernate.transaction: trace
+    p6spy: debug
+    #Трассировка методов в репозиториях
+    repository: trace
+    transaction: trace
+
+webdriver:
+  chrome:
+    path: C:\\Server\\chromedriver.exe
+  firefox:
+    path: C:\\Server\\geckodriver.exe
+instaservice:
+  filePath: C:\\Server\\instaservice\\Files
+
+file:
+  path: C:\\Server
+
+xalap:
+  uaa:
+    login:
+      success-url: ${vaadin.web-context}
+  payment:
+    robokassa:
+      merchant-login: asdasdasd
+      signature-algorithm: md5
+      password1: qweqwe
+      password2: qweqwe
+      test-password1: qweqwe
+      test-password2: weqweqwe
+yandex:
+  token: qwewqe
+  counter: 324234234
+google:
+  analytics:
+    tracking-id: 23423423
+    order-description: Раскрутка Инстаграм c гарантией
+    site-url: instafame.ru
+sendgrid:
+  api-key: dsfsfdsdfsdf
+server:
+  servlet:
+    encoding:
+      # В случае, если в запросе не указана кодировка то выставляем ее utf-8
+      charset: UTF-8
+      enabled: true
+      force: true
+slack:
+  webHookUrl: https://hooks.slack.com/services/werwerwer

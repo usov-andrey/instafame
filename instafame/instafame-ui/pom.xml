@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ All rights reserved by Xalap.
+  ~ Please email contact@xalap.com if you would like permission to do something with the contents of this repository.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>instafame</artifactId>
+        <groupId>com.xalap</groupId>
+        <version>1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>instafame-ui</artifactId>
+    <version>${instafame.version}</version>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
+                <version>${vaadin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <!-- Replace artifactId with vaadin-core to use only free components -->
+            <artifactId>vaadin</artifactId>
+            <exclusions>
+                <!-- Webjars are only needed when running in Vaadin 13 compatibility mode -->
+                <exclusion>
+                    <groupId>com.vaadin.webjar</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.insites</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.polymer</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.polymerelements</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.vaadin</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.webcomponents</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>xalap-vaadin-ui</artifactId>
+            <version>${xalap.vaadin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>xalap-vaadin-starter</artifactId>
+            <version>${xalap.vaadin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>uaa-api</artifactId>
+            <version>${uaa.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>instagram-service</artifactId>
+            <version>${instagram.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>instagram-ui</artifactId>
+            <version>${instagram.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>crm-ui</artifactId>
+            <version>${crm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>instafame-service</artifactId>
+            <version>${instafame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xalap</groupId>
+            <artifactId>payment-ui</artifactId>
+            <version>${payment.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+        </dependency>
+    </dependencies>
+    
+</project>
